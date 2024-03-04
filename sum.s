@@ -1,7 +1,7 @@
 .data
 arr1: .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, # int arr1[10]
 arr2: .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, # int arr1[10]
-newline: .string "\n"
+newline: .asciiz"\n"
 .text
 main:
     # Register not to be use x0 to x4 and x10 to x17
@@ -24,7 +24,7 @@ loop1:
     slli x18, x8 2 # set x18 to (i*4)
     add x19 x18 x9 # add i*4 to the base addres off arr1 and put it to x19
     addi x20 x8 1 # set x20 to i + 1
-    sw x20, 09(x19) # arr[i] = i + 1
+    sw x20, 0(x19) # arr[i] = i + 1
     addi x8 x8 1 # i++
     j loop1
 
@@ -40,7 +40,7 @@ loop2:
     slli x18, x8 2 # set x18 to (i*4)
     add x19 x18 x21 # add i*4 to the base addres off arr1 and put it to x21
     add x20 x8 x8 # set x20 to i + i = (2*i)
-    sw x20, 09(x19) # arr[i] = i + i = (2*i)
+    sw x20, 0(x19) # arr[i] = i + i = (2*i)
     addi x8 x8 1 # i++
     j loop2  
 
@@ -64,6 +64,7 @@ loop3:
     j loop3
 
 done3:
+    # print sum 1
     li a0 1
     add a1 zero x6
     ecall
@@ -73,6 +74,7 @@ done3:
     la a1 newline
     ecall
     
+    # print sum2
      li a0 1
     add a1 zero x7
     ecall
